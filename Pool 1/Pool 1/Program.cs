@@ -27,10 +27,10 @@ namespace Pool_1
             //Problema15();
             //Problema16();
             //Problema17();
-            //Problema18();x
+            //Problema18();
             //Problema19();
-            //Problema20();x
-            Problema21();
+            //Problema20();
+            //Problema21();
 
 
 
@@ -39,9 +39,46 @@ namespace Pool_1
         /// <summary>
         /// Ghiciti un numar intre 1 si 1024 prin intrebari de forma "numarul este mai mare sau egal decat x?". 
         /// </summary>
+
+        private static int GetGuess()
+        {
+            int guess = 0;
+            try
+            {
+                Console.WriteLine("Numarul este mai mare sau egal decat: ");
+                guess = Convert.ToInt32(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Valoarea introdusa nu este valabila");
+                guess = GetGuess();
+            }
+            return guess;
+        }
         private static void Problema21()
         {
-            
+            Random rnd = new Random();
+            int x = rnd.Next(1, 1024);
+            Console.WriteLine("Ghiciti un numar intre 1 si 1024");
+            while(true)
+            {
+                int guess = GetGuess();
+                
+                if (guess == x)
+                {
+                    Console.WriteLine("Ati ghicit, numarul este: " + x);
+                    break;
+                }
+                else if (guess < x)
+                {
+                    Console.WriteLine("Nu");
+                }
+                else if (guess > x)
+                {
+                    Console.WriteLine("Da");
+                }
+            }
+
         }
 
         /// <summary>
@@ -52,7 +89,28 @@ namespace Pool_1
         /// </summary>
         private static void Problema20()
         {
-            
+            int m = 13;
+            int n = 30;
+            double d;
+
+            d = (double)m / n;
+            Console.WriteLine(d);
+
+            double fract = d - Math.Truncate(d);
+
+            int maxDecimal = 6;
+            while (maxDecimal > 0 && fract != 0)
+            {
+                // fract = 0.43
+                int cifraZecimala;
+                cifraZecimala = (int)Math.Truncate(fract * 10);
+                Console.WriteLine($"{cifraZecimala} ");
+
+                fract = fract * 10 - Math.Truncate(fract * 10);
+
+                maxDecimal--;
+            }
+
         }
 
         /// <summary>
@@ -97,8 +155,46 @@ namespace Pool_1
         private static void Problema18()
         {
             int n = int.Parse(Console.ReadLine());
+            int contor = 0;
+            Console.Write($"Descompunerea in factori primi a numarului {n} este: ");
+            if (n % 2 == 0)
+            {
+                while (n % 2 == 0)
+                {
+                    contor++;
 
-            
+                    n /= 2;
+                }
+                Console.Write($"2 ^{contor} ");
+                contor = 0;
+                if (n > 1)
+                {
+                    Console.Write("* ");
+                }
+            }
+            for (int i = 3; i <= (int)Math.Sqrt(n); i += 2)
+            {
+                if (n % i == 0)
+                {
+                    while (n % i == 0)
+                    {
+                        contor++;
+
+                        n /= i;
+                    }
+                    Console.Write($"{i} ^ {contor} ");
+                    contor = 0;
+                    if (n > 1)
+                    {
+                        Console.Write("x ");
+                    }
+                }
+            }
+            if (n > 1)
+            {
+                Console.Write($"{n} ^ 1");
+            }
+            Console.WriteLine();
         }
 
         /// <summary>
